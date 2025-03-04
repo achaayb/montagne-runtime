@@ -1,0 +1,32 @@
+{
+  "name": "montagne-runtime",
+  "version": "1.0.0",
+  "description": "Montagne Js runtime. ⛰️",
+  "type": "module",
+  "exports": {
+    ".": "./index.js",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "esbuild ./index.js --bundle --outfile=./dist/montagne-runtime.min.js --format=esm --minify"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/achaayb/montagne-runtime.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/achaayb/montagne-runtime/issues"
+  },
+  "homepage": "https://github.com/achaayb/montagne-runtime#readme",
+  "dependencies": {
+    "nanostores": "^0.11.4",
+    "nunjucks": "^3.2.4"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0"
+  }
+}

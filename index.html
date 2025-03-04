@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nanostores Demo</title>
+</head>
+<body>
+    <h1>Bind fragment with static template</h1>
+    <div id="static_fragment" class="foo" data-value="5">
+        <h2>Count: {{ count_one }}</h2>
+        <button id="increment-static">Increment Me</button>
+    </div>
+
+    <h1>Bind fragment with dynamic template</h1>
+    <div id="dynamic_fragment" class="bar">
+        <h2>Count: {{ count_one }} {{ count_two }}</h2>
+        <button id="render-dynamic">Render Me</button>
+        <button id="increment-dynamic">Increment Me</button>
+    </div>
+
+    <script type="module">
+        import { state, render_fragment, refresh_fragment} from "./dist/montagne-runtime.min.js";
+
+        const count_one = state(0);
+        const count_two = state(0);
+
+        function increment_one() {
+            count_one.set(count_one.get() + 1);
+        }
+        function increment_two() {
+            count_two.set(count_two.get() + 1);
+        }
+
+        const template = `
+            <div id="dynamic_fragment" class="new-class" data-updated="true">
+                <h1>Count: {{ count_two }}</h1>
+                <button id="render-dynamic" disabled>Render Me</button>
+                <button id="increment-dynamic">Increment Me</button>
+            </div>
+        `;
+
+        // ✅ Uses the div's inner content as the template
+        render_fragment("static_fragment", { count_one });
+
+        document.addEventListener("click", (event) => {
+            if (event.target.id === "increment-static") {
+                console.log("???")
+                increment_one();
+            }
+            if (event.target.id === "increment-dynamic") {
+                increment_two();
+            }
+            if (event.target.id === "render-dynamic") {
+                render_fragment("dynamic_fragment", { count_one ,count_two });
+            }
+        });
+
+    </script>
+</body>
+</html>
